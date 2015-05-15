@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/**/*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+        files: ['<%= yeoman.app %>/app-content/*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          'app/**/*.html',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/**/*.js'
         ]
       },
       test: {
@@ -216,27 +216,37 @@ module.exports = function (grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+    cssmin: {
+      target: {
+        files: [{
+            expand: true,
+            cwd: 'styles/css',
+            src: ['<%= yeoman.app %>/**/*.css'],
+            dest: 'styles/css',
+            ext: '.min.css'
+          }]
+        }
+      },
+
+    uglify: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['<%= yeoman.app %>/**/*.js'],
+        dest:'<%= yeoman.dist %>/scripts/scripts.js'
+      }
+    },
+
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['<%= yeoman.app %>/**/*.js'],
+        dest:'<%= yeoman.dist %>/scripts/scripts.js'
+      }
+    },
 
     imagemin: {
       dist: {
@@ -311,7 +321,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'views/{,*/}*.html',
+            '{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -366,7 +376,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
+  //    'clean:server',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -389,7 +399,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
+  //  'clean:dist',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -398,8 +408,8 @@ module.exports = function (grunt) {
     'ngmin',
     'copy:dist',
     'cdnify',
-    'cssmin',
     'uglify',
+    'cssmin',
     'filerev',
     'usemin',
     'htmlmin'

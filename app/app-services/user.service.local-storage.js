@@ -20,27 +20,24 @@
         return service;
 
         function GetAll() {
-           var urlGetUsers = 'http://czbms-dev.apnl.ws/index.php?key=ZmpGRUVKQ1I=&action=Z2V0X3VzZXJz&deviceuid=MTIzNDU2&format=anNvbg==&token=NjIxNzU5NTRkNmQzYjg1ZTBlMzRmNzc5MzA4NjM1MmVlNTVhZDk5Nzg4ODBhMDFlZDFmNDE3ZmNmMTYxMDFlMTZhODc2MDg3OTdjYzM3MjcxODFjM2I4ZWY1NzE3YTllNDdhYzY3NzdmZGYzNDRmMDQ1OGViYTc1NGE5MGNmMzA=';
-           return $http.get(urlGetUsers).then(handleSuccess, handleError('Error getting all users'));
-          // var deferred = $q.defer();
-          // deferred.resolve(getUsers());
-          // return deferred.promise;
+          var getUserAction = 'action='.concat(btoa('get_users_cdv'));
+          var urlGetUsers = urlAPI;
+          return $http.get(urlGetUsers.concat(getUserAction)).then(handleSuccess, handleError('Error getting all users'));
+
         }
 
         function GetById(id) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { id: id });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
+            var getUserAction = 'action='.concat(btoa('get_user_cdv'));
+            var userId = '&id='.concat(btoa(id));
+            var urlGetUsers = urlAPI;
+            return $http.get(urlGetUsers.concat(getUserAction).concat(userId)).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function GetByUsername(username) {
-            var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { username: username });
-            var user = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
-            return deferred.promise;
+          var getUserAction = 'action='.concat(btoa('get_user_cdv'));
+          var userName = '&name='.concat(btoa(username));
+          var urlGetUsers = urlAPI;
+          return $http.get(urlGetUsers.concat(getUserAction).concat(userName)).then(handleSuccess, handleError('Error getting user by name'));
         }
 
         function Create(user) {
@@ -119,7 +116,7 @@
         }
 
         function handleSuccess(data) {
-            return data.data.users;
+           return data.data.users;
         }
 
         function handleError(error) {

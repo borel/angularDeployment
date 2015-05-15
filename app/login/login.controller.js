@@ -11,10 +11,12 @@
 
         vm.login = login;
 
+
         (function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
         })();
+
 
         function login() {
             vm.dataLoading = true;
@@ -23,7 +25,7 @@
                     AuthenticationService.SetCredentials(vm.username, vm.password);
                     $location.path('/');
                 } else {
-                    FlashService.Error(response.message);
+                    FlashService.Error('Authentication failed');
                     vm.dataLoading = false;
                 }
             });
