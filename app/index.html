@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="cdvApp">
 <head>
     <meta charset="utf-8" />
-    <title>AngularJS User Registration and Login Example</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <title>CDV App</title>
+    <link data-require="bootstrap-css@*" data-semver="3.0.0" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link href="app-content/app.css" rel="stylesheet" />
+
 </head>
 <body>
-
     <div class="jumbotron">
         <div class="container">
             <div class="col-sm-8 col-sm-offset-2">
@@ -27,19 +27,32 @@
     <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
     <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
 
+    <script data-require="ui-bootstrap@0.5.0" data-semver="0.5.0" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+
+    <script src="app-lib/lodash.js"></script>
+
+
     <script src="app.js"></script>
     <script src="conf.js"></script>
     <script src="app-services/authentication.service.js"></script>
     <script src="app-services/flash.service.js"></script>
+    <script src="app-services/user.service.js"></script>+
+    <script src="app-services/user.service.js"></script>
 
-    <!-- Real user service that uses an api -->
-    <!-- <script src="app-services/user.service.js"></script> -->
+    <script src="app-directives/header/header.directive.js"></script>
+    <script src="app-directives/footer/footer.directive.js"></script>
 
-    <!-- Fake user service for demo that uses local storage -->
-    <script src="app-services/user.service.local-storage.js"></script>
 
     <script src="home/home.controller.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="register/register.controller.js"></script>
+    <script src="menu/menu.controller.js"></script>
+
+
+
+
+
+
+
 </body>
 </html>

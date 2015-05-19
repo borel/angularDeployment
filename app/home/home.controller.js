@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('cdvApp')
         .controller('HomeController', HomeController);
 
     HomeController.$inject = ['UserService', '$rootScope'];
@@ -21,7 +21,7 @@
         }
 
         function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
+            UserService.GetByUserMail($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     vm.user = user[0];
                 });

@@ -2,9 +2,15 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
+        .module('cdvApp', [
+          'ngRoute',
+          'ngCookies',
+          'ui.bootstrap'
+          ])
         .config(config)
         .run(run);
+
+
 
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
@@ -26,6 +32,13 @@
                 templateUrl: 'register/register.view.html',
                 controllerAs: 'vm'
             })
+
+            .when('/user', {
+                controller: 'UserController',
+                templateUrl: 'user/user.view.html',
+                controllerAs: 'vm'
+            })
+
 
             .otherwise({ redirectTo: '/login' });
     }

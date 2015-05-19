@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('cdvApp')
         .factory('FlashService', FlashService);
 
     FlashService.$inject = ['$rootScope'];
@@ -37,7 +37,7 @@
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
-                type: 'success', 
+                type: 'success',
                 keepAfterLocationChange: keepAfterLocationChange
             };
         }

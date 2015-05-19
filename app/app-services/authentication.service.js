@@ -2,32 +2,35 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('cdvApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope','UserService'];
+    function AuthenticationService($http, $cookieStore, $rootScope,UserService) {
         var service = {};
+        var currentUser = $cookieStore.get('user');
 
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
+        service.IsAdmin = IsAdmin;
 
         return service;
 
         function Login(username, password, callback) {
             var urlAuthentication = urlAPI;
-            urlAuthentication = urlAuthentication.concat('action='.concat(btoa('cdv_authentication')));
-            urlAuthentication = urlAuthentication.concat('&name='.concat(btoa(username)));
+            urlAuthentication = urlAuthentication.concat('action='.concat(btoa('authentication')));
+            urlAuthentication = urlAuthentication.concat('&email='.concat(btoa(username)));
             urlAuthentication = urlAuthentication.concat( '&password='.concat(btoa(password)));
 
             return $http.get(urlAuthentication)
                 .success(function(data){
                 var response;
                   if(data.users.length == 1){
+                    $cookieStore.put('user', data.users[0]);
                     response = { success: true };
                   }else {
-                    response = { success: false, message: 'Username or password is incorrect' };
+                    response = { success: false, message: 'Email or password is incorrect' };
                   }
 
                   callback(response);
@@ -36,7 +39,7 @@
 
 
         function SetCredentials(username, password) {
-            var authdata = Base64.encode(username + ':' + password);
+            var authdata = btoa(username + ':' + password);
 
             $rootScope.globals = {
                 currentUser: {
@@ -53,6 +56,19 @@
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
+        }
+
+        function IsAdmin() {
+          if (_.isEmpty(currentUser)) {
+                return false;
+            }
+
+          // the admin value is 0
+          if(currentUser.typeUserId == 0){
+            return true;
+          }
+
+            return false;
         }
     }
 
