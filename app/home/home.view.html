@@ -1,11 +1,4 @@
 <ng-header></ng-header>
 <h1>Hi {{vm.user.userFirstName}}!</h1>
 <p>You're logged in!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.userIdCZD}}  - {{user.userFirstName}} {{user.userLastName}}
-        - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
 <ng-footer></ng-footer>

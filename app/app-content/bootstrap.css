@@ -6009,7 +6009,7 @@ button.close {
 .modal-dialog {
   position: relative;
   z-index: 1050;
-  width: auto;
+  width: 1000px;
   padding: 10px;
   margin-right: auto;
   margin-left: auto;
@@ -6109,8 +6109,8 @@ button.close {
 
 @media screen and (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
-    padding-top: 30px;
+    width: 1000px;
+    padding-top: 100px;
     padding-bottom: 30px;
   }
   .modal-content {

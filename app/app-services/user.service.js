@@ -15,6 +15,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.GetUserTypes = GetUserTypes;
 
         return service;
 
@@ -39,6 +40,12 @@
           return $http.get(urlGetUsers.concat(getUserAction).concat(userEmail)).then(handleSuccess, handleError('Error getting user by name'));
         }
 
+        function GetUserTypes() {
+          var urlUserType = urlAPI;
+          urlUserType = urlUserType.concat('action='.concat(btoa('get_user_types')));
+          return $http.get(urlUserType).then(handleSuccessUserTypes, handleError('Error getting user type by name'));
+        }
+
         function Create(user) {
           //todo
             return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
@@ -55,9 +62,12 @@
         }
 
         // private functions
-
         function handleSuccess(data) {
             return data.data.users;
+        }
+
+        function handleSuccessUserTypes(data) {
+            return data.data.userType;
         }
 
         function handleError(error) {

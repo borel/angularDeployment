@@ -11,7 +11,6 @@
         .run(run);
 
 
-
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
@@ -36,15 +35,15 @@
             .when('/user', {
                 controller: 'UserController',
                 templateUrl: 'user/user.view.html',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
             })
 
 
             .otherwise({ redirectTo: '/login' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-    function run($rootScope, $location, $cookieStore, $http) {
+    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http' , 'AuthenticationService'];
+    function run($rootScope, $location, $cookieStore, $http , AuthenticationService , $modal , $modalInstance) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
@@ -53,11 +52,22 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
+            var restrictedPageAdmin = $.inArray($location.path(), ['/user']) === 0;
+
+            // If loggedIn
             var loggedIn = $rootScope.globals.currentUser;
+
+            // If restricted page and not loged in , send back to login
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
+
+            // If required admin , send back to home
+            if (restrictedPageAdmin && loggedIn && !AuthenticationService.IsAdmin()) {
+                $location.path('/home');
+            }
+
         });
     }
 
