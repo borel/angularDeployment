@@ -52,9 +52,9 @@
            });
 
            modalInstance.result.then(function () {
-
+              alert("ok");
            }, function () {
-
+              alert("cancel");
            });
        };
 

@@ -64,7 +64,7 @@
             }
 
           // the admin value is 0
-          if(currentUser.typeUserId == 0){
+          if(currentUser.typeUserId == 1){
             return true;
           }
 
