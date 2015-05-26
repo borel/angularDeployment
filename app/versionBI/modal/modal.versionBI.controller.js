@@ -3,16 +3,16 @@
 
     angular
         .module('cdvApp')
-        .controller('ModalUserController', ModalUserController);
+        .controller('ModalVersionBIController', ModalVersionBIController);
 
-        ModalUserController.$inject = ['UserService', '$rootScope','$modalInstance', 'user' ,'action'];
+        ModalVersionBIController.$inject = ['BiService', '$rootScope','$modalInstance', 'version' ,'action'];
 
-    function ModalUserController(UserService,$rootScope,$modalInstance, user,action) {
+    function ModalVersionBIController(BiService,$rootScope,$modalInstance,version,action) {
 
-       initController(user);
+       initController(version);
 
-       function initController(user) {
-           $rootScope.user = user;
+       function initController(version) {
+           $rootScope.version = version;
 
            // We adapt the message depends on the action
            if(action == 'update'){
@@ -25,26 +25,15 @@
              $rootScope.labelAction = 'Supprimer';
              $rootScope.readOnlyBool = true;
            }
-
-           // We must find the rignt user type for the user
-           var indexUserType;
-           if(user == null){
-             indexUserType = '0';
-           }else{
-             indexUserType = _.findIndex($rootScope.userTypes, { id: user.typeUserId});
-           }
-           $rootScope.selected.userType = $rootScope.userTypes[indexUserType];
        }
 
-
        $rootScope.ok = function () {
-         // Update userType for the user
-         user.typeUserId = $rootScope.selected.userType.id;
+
          $rootScope.dataLoading = true;
 
          if(action == 'create'){
-           // create the user if he does not exists
-           UserService.Create(user, function (response) {
+           // create the version if he does not exists
+           BiService.CreateVersionBI(version, function (response) {
              if (response.success) {
                $rootScope.dataLoading = false;
                $modalInstance.close();
@@ -55,8 +44,8 @@
            });
 
          }else if(action == 'update'){
-           // update the user if he exists
-           UserService.Update(user, function (response) {
+           // update the version if he exists
+           BiService.UpdateVersionBI(version, function (response) {
              if (response.success) {
                $rootScope.dataLoading = false;
                $modalInstance.close();
@@ -66,8 +55,8 @@
              }
            });
          }else if(action == 'delete'){
-           // update the user if he exists
-           UserService.Delete(user.userId, function (response) {
+           // update the version if he exists
+           BiService.DeleteVersionBI(version.id, function (response) {
              if (response.success) {
                $rootScope.dataLoading = false;
                $modalInstance.close();

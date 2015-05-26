@@ -38,6 +38,12 @@
                 controllerAs: 'vm',
             })
 
+            .when('/versionBI', {
+                controller: 'VersionBIController',
+                templateUrl: 'versionBI/versionBI.view.html',
+                controllerAs: 'vm',
+            })
+
 
             .otherwise({ redirectTo: '/login' });
     }

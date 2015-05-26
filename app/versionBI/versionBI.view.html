@@ -1,39 +1,39 @@
 <ng-header></ng-header>
-<h3>Gestion des utilisateurs</h3>
+<h3>Gestion des version de BI</h3>
 <div ng-show="error" class="alert alert-danger">{{error}}</div>
-    <button class="btn btn-primary" ng-click="createUser()">Créer un utilisateur</button>
+    <button class="btn btn-primary" ng-click="createVersionBI()">Créer une version de bande instrumentée</button>
 <br>
 <br>
 <ul>
   <table class="table table-condensed table-striped">
     <tr>
-        <th>Nom</th>
-        <th>Prénon</th>
+        <th>Id</th>
+        <th>Label</th>
+        <th>Date de création</th>
         <th>Action</th>
     <tr/>
     <tr>
 
-        <tr ng-repeat="user in vm.allUsers">
-          <td>{{user.firstName}}</td>
-          <td>{{user.lastName}}</td>
+        <tr ng-repeat="version in vm.allBiVersions">
+          <td>{{version.id}}</td>
+          <td>{{version.label}}</td>
+          <td>{{version.creationDate}}</td>
+
           <td>
-
-
             <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle">Menu <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li ng-click="selected.user = user ; updateUser()">  <a>Modifier</a></li>
-                    <li ng-click="selected.user = user ; deleteUser()"> <a>Supprimer</a></li>
+                    <li ng-click="selected.version = version ; updateVersionBI()">  <a>Modifier</a></li>
+                    <li ng-click="selected.version = version ; deleteVersionBI()"> <a>Supprimer</a></li>
                   </ul>
                 </li>
               </ul>
             </div>
-          </nav>
           </td>
 
-      </tr>
+        </tr>
     </tr>
   </table>
 </ul>

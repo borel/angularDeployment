@@ -12,6 +12,7 @@
         // Init the screen
         initController();
 
+
         function initController() {
             loadAllUsers();
             loadUserType();
@@ -34,37 +35,88 @@
                 });
         }
 
+
        $rootScope.animationsEnabled = true;
 
 
-       $rootScope.open = function () {
+       $rootScope.deleteUser = function () {
          var modalInstance = $modal.open({
             animation: $rootScope.animationsEnabled,
             templateUrl: 'user/modal/modal.user.view.html',
             controller : 'ModalUserController',
-
              resolve: {
                user: function () {
-                 return $rootScope.selected.user;
-               }
+                   return $rootScope.selected.user;
+               },
 
+               action: function () {
+                   return "delete";
+               }
              }
            });
 
            modalInstance.result.then(function () {
-              alert("ok");
+             loadAllUsers();
            }, function () {
-              alert("cancel");
+             $rootScope.error = null;
+              loadAllUsers();
            });
        };
+
+       $rootScope.updateUser = function () {
+         var modalInstance = $modal.open({
+            animation: $rootScope.animationsEnabled,
+            templateUrl: 'user/modal/modal.user.view.html',
+            controller : 'ModalUserController',
+             resolve: {
+               user: function () {
+                   return $rootScope.selected.user;
+               },
+
+               action: function () {
+                   return "update";
+               }
+             }
+           });
+
+           modalInstance.result.then(function () {
+             loadAllUsers();
+           }, function () {
+             $rootScope.error = null;
+             loadAllUsers();
+           });
+       };
+
+
+       $rootScope.createUser = function () {
+         var modalInstance = $modal.open({
+            animation: $rootScope.animationsEnabled,
+            templateUrl: 'user/modal/modal.user.view.html',
+            controller : 'ModalUserController',
+             resolve: {
+                       user: function () {
+                           // create an empty object of user
+                           var user = {};
+                           return user;
+                       },
+
+                       action: function () {
+                           return "create";
+                       }
+                     }
+               });
+
+               modalInstance.result.then(function () {
+                 loadAllUsers();
+               }, function () {
+                  $rootScope.error = null;
+                  loadAllUsers();
+               });
+            };
 
        $rootScope.toggleAnimation = function () {
          $rootScope.animationsEnabled = !$rootScope.animationsEnabled;
        };
     }
-
-
-
-
 
 })();

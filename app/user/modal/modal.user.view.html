@@ -1,28 +1,37 @@
     <div class="modal-header">
-        <h3 class="modal-title">User : {{user.userLastName}}</h3>
+        <h3 class="modal-title">User : {{user.lastName}}</h3>
     </div>
+    <div ng-show="error" class="alert alert-danger">{{error}}</div>
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
     <div class="modal-body" >
         <table class="table table-condensed table-striped">
           <tr>
               <th>ID</th>
               <th>Prénon</th>
               <th>Nom</th>
+              <th>Email</th>
               <th>Mot de passe</th>
               <th>Type d'utilisateur</th>
 
           </tr>
           <tr>
               <td>{{user.userId}}</td>
-              <td><input type="text" ng-model="user.userFirstName" class="form-control"></td>
-              <td><input type="text" ng-model="user.userLastName" class="form-control"></td>
-              <td><input type="text" ng-model="user.password" class="form-control"></td>
+              <td><input type="text" ng-model="user.firstName" ng-readonly="readOnlyBool" class="form-control"></td>
+              <td><input type="text" ng-model="user.lastName"  ng-readonly="readOnlyBool" class="form-control"></td>
+              <td><input type="text" ng-model="user.email" ng-readonly="readOnlyBool" class="form-control"></td>
+              <td><input type="text" ng-model="user.password" ng-readonly="readOnlyBool" class="form-control"></td>
+
               <td>
-                  <select ng-model="user_types" ng-options="userType.label for userType in userTypes"/>
+                  <select ng-model="selected.userType" ng-options="userType.label for userType in userTypes" ng-readonly='readOnlyBool' class="form-control" />
               </td>
           </tr>
+
+
       </table>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">Sauvegarder</button>
+      <img ng-if="dataLoading"
+      src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <button class="btn btn-primary" ng-click="ok()">{{labelAction}}</button>
         <button class="btn btn-warning" ng-click="cancel()">Annuler</button>
     </div>

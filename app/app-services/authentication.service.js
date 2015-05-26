@@ -17,10 +17,10 @@
 
         return service;
 
-        function Login(username, password, callback) {
+        function Login(email, password, callback) {
             var urlAuthentication = urlAPI;
             urlAuthentication = urlAuthentication.concat('action='.concat(btoa('authentication')));
-            urlAuthentication = urlAuthentication.concat('&email='.concat(btoa(username)));
+            urlAuthentication = urlAuthentication.concat('&email='.concat(btoa(email)));
             urlAuthentication = urlAuthentication.concat( '&password='.concat(btoa(password)));
 
             return $http.get(urlAuthentication)
