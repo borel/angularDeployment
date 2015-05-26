@@ -7,6 +7,7 @@ angular.module('cdvApp')
             restrict: 'E',
             link: function (scope, elem, attrs) {
               scope.isAdmin = AuthenticationService.IsAdmin();
+              scope.isBiBuilder = AuthenticationService.IsBiBuilder();
             }
         };
     });

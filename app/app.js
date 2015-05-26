@@ -44,6 +44,12 @@
                 controllerAs: 'vm',
             })
 
+            .when('/registerBI', {
+                controller: 'RegisterBIController',
+                templateUrl: 'registerBI/registerBI.view.html',
+                controllerAs: 'vm',
+            })
+
 
             .otherwise({ redirectTo: '/login' });
     }
@@ -60,6 +66,7 @@
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
             var restrictedPageAdmin = $.inArray($location.path(), ['/user']) === 0;
+            
 
             // If loggedIn
             var loggedIn = $rootScope.globals.currentUser;

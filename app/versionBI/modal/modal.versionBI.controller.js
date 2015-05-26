@@ -13,8 +13,12 @@
 
        function initController(version) {
            $rootScope.version = version;
+           // Cast inforomation into number
+           version.conductorWire = parseInt(version.conductorWire);
+           version.paramDenudage = parseInt(version.paramDenudage);
+           version.paramDetourage = parseInt(version.paramDetourage);
 
-           // We adapt the message depends on the action
+          // We adapt the message depends on the action
            if(action == 'update'){
              $rootScope.labelAction = 'Modifier';
              $rootScope.readOnlyBool = false;
@@ -30,6 +34,12 @@
        $rootScope.ok = function () {
 
          $rootScope.dataLoading = true;
+
+         // We build the label depending on version information
+         var label = String(version.conductorWire).concat(".");
+         var label = label.concat(String(version.paramDenudage)).concat(".");
+         var label = label.concat(String(version.paramDetourage));
+         version.label = label;
 
          if(action == 'create'){
            // create the version if he does not exists

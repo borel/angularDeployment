@@ -30,6 +30,9 @@
         var urlCreateVersionBI = urlAPI;
         urlCreateVersionBI = urlCreateVersionBI.concat('action='.concat(btoa('post_version_bi_create')));
         urlCreateVersionBI = urlCreateVersionBI.concat('&label='.concat(btoa(version.label)));
+        urlCreateVersionBI = urlCreateVersionBI.concat('&conductorWire='.concat(btoa(version.conductorWire)));
+        urlCreateVersionBI = urlCreateVersionBI.concat('&paramDenudage='.concat(btoa(version.paramDenudage)));
+        urlCreateVersionBI = urlCreateVersionBI.concat('&paramDetourage='.concat(btoa(version.paramDetourage)));
         return $http.post(urlCreateVersionBI)
         .success(function(wsResult){
             var response;
@@ -49,6 +52,9 @@
         urlUpdateVersionBI = urlUpdateVersionBI.concat('action='.concat(btoa('post_version_bi_update')));
         urlUpdateVersionBI = urlUpdateVersionBI.concat('&id='.concat(btoa(version.id)));
         urlUpdateVersionBI = urlUpdateVersionBI.concat('&label='.concat(btoa(version.label)));
+        urlUpdateVersionBI = urlUpdateVersionBI.concat('&conductorWire='.concat(btoa(version.conductorWire)));
+        urlUpdateVersionBI = urlUpdateVersionBI.concat('&paramDenudage='.concat(btoa(version.paramDenudage)));
+        urlUpdateVersionBI = urlUpdateVersionBI.concat('&paramDetourage='.concat(btoa(version.paramDetourage)));
         return $http.post(urlUpdateVersionBI)
         .success(function(wsResult){
             var response;

@@ -7,13 +7,18 @@
     <table class="table table-condensed table-striped">
       <tr>
           <th>Id</th>
-          <th>Label</th>
+          <th style="width:15%">Fil conducteur</th>
+          <th style="width:15%">Paramètres de dénudage</th>
+          <th style="width:15%">Paramètres de détourage</th>
           <th>Date de création</th>
           <th>Date de modification</th>
       </tr>
       <tr>
           <td>{{version.id}}</td>
-          <td><input type="text" ng-model="version.label" ng-readonly="readOnlyBool" class="form-control"></td>
+          <td><input  ng-model="version.conductorWire" type="number" min="0" max="999" maxlength="3" ng-readonly="readOnlyBool"  style="width:40%"></td>
+          <td><input  ng-model="version.paramDenudage" type="number" min="0" max="999" maxlength="3" ng-readonly="readOnlyBool" style="width:40%" ></td>
+          <td><input  ng-model="version.paramDetourage" type="number" min="0" max="999" maxlength="3" ng-readonly="readOnlyBool"  style="width:40%"></td>
+
           <td><input type="text" ng-model="version.creationDate"  ng-readonly="true" class="form-control"></td>
           <td><input type="text" ng-model="version.modificationDate" ng-readonly="true" class="form-control"></td>
       </tr>

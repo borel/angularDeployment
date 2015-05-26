@@ -14,6 +14,8 @@
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
         service.IsAdmin = IsAdmin;
+        service.IsBiBuilder = IsBiBuilder;
+
 
         return service;
 
@@ -65,6 +67,19 @@
 
           // the admin value is 0
           if(currentUser.typeUserId == 1){
+            return true;
+          }
+
+            return false;
+        }
+
+        function IsBiBuilder() {
+          if (_.isEmpty(currentUser)) {
+                return false;
+            }
+
+          // the admin value is 0
+          if(currentUser.typeUserId == 2){
             return true;
           }
 

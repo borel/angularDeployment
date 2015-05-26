@@ -26,8 +26,6 @@
               });
       }
 
-
-
       $rootScope.createVersionBI = function () {
         var modalInstance = $modal.open({
            animation: $rootScope.animationsEnabled,
