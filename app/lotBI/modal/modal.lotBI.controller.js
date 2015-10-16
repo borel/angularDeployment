@@ -8,8 +8,6 @@
         ModalLotBIController.$inject = ['BiService', '$rootScope','$modal','lotBI'];
     function ModalLotBIController(BiService,$rootScope,$modal,lotBI) {
       $rootScope.bis = [];
-
-
       initController();
 
       function initController() {
