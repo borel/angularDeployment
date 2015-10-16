@@ -1,0 +1,41 @@
+<ng-header></ng-header>
+<h3>Gestion des lot de BI</h3>
+
+<ul>
+  <table class="table table-condensed table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Nombre de BI</th>
+        <th>Nom du fournisseur</th>
+        <th>Id du rouleau</th>
+        <th>Version de BI</th>
+        <th>Date de production</th>
+        <th style="width:25%" >Action</th>
+
+
+    <tr/>
+    <tr>
+        <tr ng-repeat="lotBI in vm.lotBIs">
+          <td> {{lotBI.id}}</td>
+          <td>{{lotBI.number}}</td>
+          <td>{{lotBI.providerName}}</td>
+          <td>{{lotBI.clothRollId}}</td>
+          <td><a ng-click="vm.selected = lotBI ; loadVersion()">{{lotBI.versionBILabel}}</a></td>
+          <td>{{lotBI.productionDate }}</td>
+          <td>
+          <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Menu <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li ng-click="vm.selected = lotBI ; loadLotBI()"> <a>Afficher</a></li>
+                </ul>
+              </li>
+            </ul>
+          </td>
+          </div>
+        </tr>
+    </tr>
+  </table>
+</ul>
+<ng-footer></ng-footer>

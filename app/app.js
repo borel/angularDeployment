@@ -11,8 +11,8 @@
         .run(run);
 
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
-    function config($routeProvider, $locationProvider) {
+    config.$inject = ['$routeProvider', '$locationProvider','$httpProvider'];
+    function config($routeProvider, $locationProvider,$httpProvider) {
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
@@ -50,8 +50,19 @@
                 controllerAs: 'vm',
             })
 
+            .when('/lotBI', {
+                controller: 'LotBIController',
+                templateUrl: 'lotBI/lotBI.view.html',
+                controllerAs: 'vm',
+            })
+
 
             .otherwise({ redirectTo: '/login' });
+
+            $httpProvider.defaults.headers.common = {};
+             $httpProvider.defaults.headers.post = {};
+             $httpProvider.defaults.headers.put = {};
+             $httpProvider.defaults.headers.patch = {};
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http' , 'AuthenticationService'];
@@ -66,7 +77,6 @@
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
             var restrictedPageAdmin = $.inArray($location.path(), ['/user']) === 0;
-            
 
             // If loggedIn
             var loggedIn = $rootScope.globals.currentUser;

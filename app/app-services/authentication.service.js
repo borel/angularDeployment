@@ -61,12 +61,13 @@
         }
 
         function IsAdmin() {
-          if (_.isEmpty(currentUser)) {
+          var user = $cookieStore.get('user');
+          if (_.isEmpty(user)) {
                 return false;
             }
 
           // the admin value is 0
-          if(currentUser.typeUserId == 1){
+          if(user.typeUserId == 1){
             return true;
           }
 
@@ -74,12 +75,13 @@
         }
 
         function IsBiBuilder() {
-          if (_.isEmpty(currentUser)) {
+          var user = $cookieStore.get('user');
+          if (_.isEmpty(user)) {
                 return false;
             }
 
           // the admin value is 0
-          if(currentUser.typeUserId == 2){
+          if(user.typeUserId == 2){
             return true;
           }
 

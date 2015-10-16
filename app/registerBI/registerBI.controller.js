@@ -5,10 +5,16 @@
         .module('cdvApp')
         .controller('RegisterBIController', RegisterBIController);
 
-    RegisterBIController.$inject = ['BiService', '$rootScope','$modal'];
-    function RegisterBIController(BiService,$rootScope,$modal) {
+    RegisterBIController.$inject = ['BiService', '$rootScope','$cookieStore'];
+    function RegisterBIController(BiService,$rootScope,$cookieStore) {
       var vm = this;
+
+      vm.currentUser = $cookieStore.get('user');
       vm.versionBIs = [];
+      vm.generate = generate;
+      // todo : to import via scan
+      vm.roulotBiId = '1';
+
 
       initController();
 
@@ -24,6 +30,23 @@
                   vm.versionBIs = biVersions;
               });
       }
+
+
+      function generate() {
+        vm.dataLoading = true;
+        BiService.GenerateLotBi(vm.versionBI.id,vm.nbBI,vm.roulotBiId,vm.currentUser.userId,vm.sizeBi,function (response) {
+          if (response.success) {
+             vm.dataLoading = false;
+             vm.success = response.message;
+          } else {
+            vm.dataLoading = false;
+             vm.error = response.message;
+          }
+        });
+
+      }
+
+
     }
 
 })();

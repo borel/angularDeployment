@@ -15,6 +15,10 @@
       service.CreateVersionBI = CreateVersionBI;
       service.UpdateVersionBI = UpdateVersionBI;
       service.DeleteVersionBI = DeleteVersionBI;
+      service.GenerateLotBi = GenerateLotBi;
+      service.GetLotBIs = GetLotBIs;
+      service.GetBIs = GetBIs;
+      service.GetVersionBI = GetVersionBI;
 
       return service;
 
@@ -22,7 +26,19 @@
       function GetVersionBIs() {
         var urlVersionBI = urlAPI;
         urlVersionBI = urlVersionBI.concat('action='.concat(btoa('get_version_bis')));
-        return $http.get(urlVersionBI).then(handleSuccess, handleError('Error getting BI version'));
+        return $http.get(urlVersionBI).then(handleVersionBiSuccess, handleError('Error getting BI version'));
+      }
+
+      function GetVersionBI(id) {
+        var urlVersionBI = urlAPI;
+        urlVersionBI = urlVersionBI.concat('action='.concat(btoa('get_version_bi')));
+        urlVersionBI = urlVersionBI.concat('&id='.concat(btoa(id)));
+        return $http.get(urlVersionBI).then(handleVersionBiSuccess, handleError('Error getting BI version'));
+      }
+
+      // private functions
+      function handleVersionBiSuccess(data) {
+          return data.data.versionBI;
       }
 
 
@@ -85,9 +101,53 @@
         });
       }
 
+
+      function GenerateLotBi(versionBiId,nbBI,roulotBiId,userId,sizeBi,callback){
+        var urlGenerateLotBi = urlAPI;
+        urlGenerateLotBi = urlGenerateLotBi.concat('action='.concat(btoa('post_generate_lot_bi')));
+        urlGenerateLotBi = urlGenerateLotBi.concat('&versionBiId='.concat(btoa(versionBiId)));
+        urlGenerateLotBi = urlGenerateLotBi.concat('&nbBi='.concat(btoa(nbBI)));
+        urlGenerateLotBi = urlGenerateLotBi.concat('&clothRollId='.concat(btoa(roulotBiId)));
+        urlGenerateLotBi = urlGenerateLotBi.concat('&sizeBi='.concat(btoa(sizeBi)));
+        urlGenerateLotBi = urlGenerateLotBi.concat('&userId='.concat(btoa(userId)));
+
+        return $http.post(urlGenerateLotBi)
+        .success(function(wsResult){
+            var response;
+              if(wsResult.error != null){
+                response =  {success: false, message: wsResult.error.message };
+              }else {
+                var messageSuccess =  'Le lot a été généré : ';
+                messageSuccess = messageSuccess.concat(wsResult.lotBi);
+                response = { success: true, message: messageSuccess};
+              }
+
+              callback(response);
+        });
+      }
+
+      function GetLotBIs() {
+        var urlVersionBI = urlAPI;
+        urlVersionBI = urlVersionBI.concat('action='.concat(btoa('get_lot_bis')));
+        return $http.get(urlVersionBI).then(handleLotBiSuccess, handleError('Error getting BI version'));
+      }
+
       // private functions
-      function handleSuccess(data) {
-          return data.data.versionBI;
+      function handleLotBiSuccess(data) {
+          return data.data.lotBis;
+      }
+
+
+      function GetBIs(lotBI) {
+        var urlVersionBI = urlAPI;
+        urlVersionBI = urlVersionBI.concat('action='.concat(btoa('get_bis')));
+        urlVersionBI = urlVersionBI.concat('&lotId='.concat(btoa(lotBI.id)));
+        return $http.get(urlVersionBI).then(handleBiSuccess, handleError('Error getting BI version'));
+      }
+
+      // private functions
+      function handleBiSuccess(data) {
+          return data.data.bis;
       }
 
       function handleError(error) {

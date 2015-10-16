@@ -2,6 +2,7 @@
 <div >
   <h3>Generer un lot de BI</h3>
   <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+  <div ng-show="vm.success" class="alert alert-success"><a onclick="">{{vm.success}}</a></div>
   <form name="form" ng-submit="vm.generate()" role="form">
       <div class="form-group" ng-class="{ 'has-error': form.versionBI.$dirty && form.versionBI.$error.required }">
           <label required style ="font-size: 14px;" for="versionBI">Version de BI</label>
@@ -11,11 +12,21 @@
       </div>
       <div class="form-group" ng-class="{ 'has-error': form.nbBI.$dirty && form.nbBI.$error.required }">
           <label style ="font-size: 14px;" for="nbBI">Nombre de BI</label>
-          <input type='number' maxlength="5" step='10' name="nbBI" min="0" max="10000" id="nbBI" class="form-control" ng-model="vm.nbBI" required  style =" width:30%;   font-size: 14px;"/>
+          <input type='number' maxlength="5" name="nbBI" min="0" max="10000" id="nbBI" class="form-control" ng-model="vm.nbBI" required  style =" width:30%;   font-size: 14px;"/>
           <span ng-show="form.nbBI.$dirty && form.nbBI.$error.required" class="help-block">Le nombre de BI est nécessaire</span>
       </div>
+      <div class="form-group" ng-class="{ 'has-error': form.sizeBI.$dirty && form.sizeBI.$error.required }">
+          <label style ="font-size: 14px;" for="sizeBI">Taille bande</label>
+          <input type='text' maxlength="4" name="sizeBI" min="0" max="10000" id="sizeBI" class="form-control" ng-model="vm.sizeBi" required  style =" width:30%;   font-size: 14px;"/>
+          <span ng-show="form.sizeBI.$dirty && form.sizeBI.$error.required" class="help-block">La taille de BI est nécessaire</span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error': form.roulotBiId.$dirty && form.roulotBiId.$error.required }">
+          <label style ="font-size: 14px;" for="roulotBiId">Id rouleau tissu</label>
+          <input type='text' maxlength="5" name="roulotBiId" id="roulotBiId" class="form-control" ng-model="vm.roulotBiId" required  readonly="true" style =" width:30%;   font-size: 14px;"/>
+          <span ng-show="form.roulotBiId.$dirty && form.roulotBiId.$error.required" class="help-block">L'id du rouleau tissu est necessaire</span>
+      </div>
       <div class="form-actions">
-          <button type="generate" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-success">Generez</button>
+          <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-success">Generez</button>
           <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
       </div>
   </form>
